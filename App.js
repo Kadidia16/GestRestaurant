@@ -1,7 +1,8 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
-import * as firebase from "firebase";
+import { initializeApp, getApps } from "firebase/app"; // Correct import
+import { Text } from "react-native";
 
 import {
   useFonts as useOswald,
@@ -14,20 +15,30 @@ import { Navigation } from "./src/infrastructure/navigation";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
+// Configuration Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBmKwzXIQ_7iufDh4U6GyU_4Wc-hyDEnf8",
-  authDomain: "mealstogo-b2612.firebaseapp.com",
-  projectId: "mealstogo-b2612",
-  storageBucket: "mealstogo-b2612.appspot.com",
-  messagingSenderId: "158582890553",
-  appId: "1:158582890553:web:2ef50439fcd80f2ede2de8",
+  apiKey: "AIzaSyB90vWR3DHwze707oyLdTtza0jTcePiXH8",
+  authDomain: "mealtogo-5aadc.firebaseapp.com",
+  projectId: "mealtogo-5aadc",
+  storageBucket: "mealtogo-5aadc.firebasestorage.app",
+  messagingSenderId: "120488660399",
+  appId: "1:120488660399:web:cc2db3b9b39edacb6af35a"
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+// Initialisation de Firebase
+try {
+  if (!getApps().length) {
+    const app = initializeApp(firebaseConfig);
+    console.log("Firebase initialized successfully:", app.name);
+  } else {
+    console.log("Firebase already initialized.");
+  }
+} catch (error) {
+  console.error("Firebase initialization error:", error);
 }
 
 export default function App() {
+  // Chargement des polices
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
@@ -37,8 +48,11 @@ export default function App() {
   });
 
   if (!oswaldLoaded || !latoLoaded) {
+    console.log("Fonts not loaded yet.");
     return null;
   }
+
+  console.log("Fonts loaded successfully.");
 
   return (
     <>

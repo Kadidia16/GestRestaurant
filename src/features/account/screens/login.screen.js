@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { ActivityIndicator, Colors } from "react-native-paper";
-
+import { colors } from "../../../infrastructure/theme/colors";
 import {
   AccountBackground,
   AccountCover,
@@ -56,7 +56,7 @@ export const LoginScreen = ({ navigation }) => {
               Login
             </AuthButton>
           ) : (
-            <ActivityIndicator animating={true} color={Colors.blue300} />
+            <ActivityIndicator animating={true} color={colors.brand.primary} />
           )}
         </Spacer>
       </AccountContainer>
